@@ -5,15 +5,19 @@ import { Connection } from 'typeorm';
 import { AppController } from './app.controller';
 
 import { AppService } from './app.service';
+import { productModule } from './modules/product/product.module';
 
 @Module({
-  imports: [TypeOrmModule.forRoot()],
+  imports: [
+    TypeOrmModule.forRoot(
+    ),
+    productModule,
+  ],
   controllers: [AppController],
   providers: [AppService],
 })
-//aqui se deben agregar los modulos
+
 export class AppModule {
-  constructor(private readonly connection: Connection){
-    
+  constructor(private readonly connection: Connection){ 
   }
 }

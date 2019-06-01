@@ -1,4 +1,5 @@
 import * as dotenv from 'dotenv';
+
 dotenv.config();
 
 //mode
@@ -10,3 +11,4 @@ export const appPrefix = process.env.APP_URL_PREFIX;
 export const appPort = process.env.APP_PORT;
 export const JWTKey = process.env.JWT_KEY;
 export const hostSite = process.env.HOST_SITE;
+

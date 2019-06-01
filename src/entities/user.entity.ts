@@ -15,8 +15,8 @@ export enum Gender {
     F = "Femenino"
 }
 
-@Entity("user")
-export class user {
+@Entity("User")
+export class User {
 
     @PrimaryGeneratedColumn({
         type:"bigint", 
