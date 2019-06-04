@@ -1,6 +1,6 @@
 import { Injectable, NestMiddleware } from '@nestjs/common'
 import * as jwt from 'jsonwebtoken'
-import { JWTKey } from './../../../environment/environment';
+import { JWTKey } from '../environment/environment';
 
 @Injectable()
 export class AuthMiddleware implements NestMiddleware {

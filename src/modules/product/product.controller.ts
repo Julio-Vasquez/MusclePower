@@ -2,13 +2,14 @@ import { Controller, Get, Post, Body, Param, Res, HttpStatus } from '@nestjs/com
 import { ApiUseTags } from '@nestjs/swagger';
 
 import Response from '../common/response';
-import { productService} from './product.service';
-import { Product } from './../../entities/product.entity';
+import { ProductService } from './product.service';
+import { Product } from '../../entities/product.entity';
 
 @ApiUseTags('Productos')
 @Controller('Product')
-export class productController {
-  constructor(private readonly service: productService) 
+export class ProductController {
+
+  constructor(private readonly service: ProductService) 
   {
   }
 

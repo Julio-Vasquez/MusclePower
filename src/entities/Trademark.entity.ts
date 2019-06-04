@@ -1,8 +1,4 @@
-import {Column,
-    Entity,
-    PrimaryGeneratedColumn,
-    OneToMany
-} from "typeorm";
+import { Column, Entity, PrimaryGeneratedColumn, OneToMany } from "typeorm";
 
 import { Product } from './product.entity';
 
@@ -33,7 +29,7 @@ export class Trademark
 
     @Column({
         nullable: false,
-        type: "varchar",
+        type: "text",
         name: 'img'
     })
     img : string;
@@ -46,7 +42,7 @@ export class Trademark
     })
     state: string;
 
-    @OneToMany(type => Product, product => product.trademark)
+    @OneToMany(type => Product, product => product.trademark,{ onDelete: 'CASCADE' ,onUpdate: 'CASCADE' })
     products: Product[];
     
 } 

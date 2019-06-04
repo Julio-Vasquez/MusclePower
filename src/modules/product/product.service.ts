@@ -1,25 +1,26 @@
 import { Injectable } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
 import { Connection, Repository } from 'typeorm';
+import { InjectRepository } from '@nestjs/typeorm';
 import { Product } from './../../entities/product.entity';
-import { productDto } from './dto/product.dto';
+
 
 @Injectable()
-export class productService {
+export class ProductService {
 
   constructor
   ( 
     private readonly connection: Connection,
-   @InjectRepository(Product)
+    @InjectRepository(Product)
     private readonly repository: Repository<Product>
-  ){}
+  )
+  {}
 
-  public async findAll(): Promise<Product[]>
+  public async findAll()
   {
-    return await this.repository.find();
+    return ;
   }
 
-  public async findByName(name: string): Promise<Product[]>
+  public async findByName(name: string)
   {
     return await this.repository
     .createQueryBuilder('products')
@@ -29,7 +30,7 @@ export class productService {
     .execute();
   }
 
-  public async findById(id: number):Promise<Product>
+  public async findById(id: number)
   {
     return await this.repository
     .createQueryBuilder('products')
@@ -39,7 +40,7 @@ export class productService {
     .execute();
   }
 
-  public async createProduct(productDto: productDto)
+  public async createProduct()
   {
     return;
   }

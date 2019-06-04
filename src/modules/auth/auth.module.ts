@@ -1,9 +1,18 @@
 import { Module } from '@nestjs/common';
+import { JwtModule } from '@nestjs/jwt';
+import { JWTKey } from './../common/environment/environment';
+import { AuthController } from './auth.controller';
+import { HttpStrategy } from '../common/http-strategy';
+import { AuthService } from './auth.service';
 
 @Module({
-  imports:[],
-  controllers: [],
-  providers: [],
+  imports:[
+    JwtModule.register({
+      privateKey: JWTKey
+    })
+  ],
+  controllers: [AuthController],
+  providers: [HttpStrategy, AuthService ],
   exports: []
 })
-export class authModule {}
+export class AuthModule {}

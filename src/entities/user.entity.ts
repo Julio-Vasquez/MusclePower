@@ -23,10 +23,10 @@ export class User {
         name:"id"
         })
     @PrimaryColumn()
-    public id : string;
+    public id : number;
         
 
-    @Column("character varying",{ 
+    @Column({ 
         nullable:false,
         length:60,
         name:"names"
@@ -34,7 +34,7 @@ export class User {
     public names : string;
         
 
-    @Column("character varying",{ 
+    @Column({ 
         nullable:false,
         length:60,
         name:"lastnames"
@@ -42,7 +42,7 @@ export class User {
     public lastnames : string;
         
 
-    @Column("character varying",{ 
+    @Column({ 
         nullable:false,
         length:255,
         name:"email"
@@ -70,14 +70,14 @@ export class User {
     })
     public gender: string
 
-    @Column("character varying",{ 
+    @Column({ 
         nullable:true,
         length:15,
         name:"telephone"
         })
     public telephone : string | null;
 
-    @Column("timestamp without time zone",{ 
+    @Column({ 
         nullable:false,
         name:"date_register"
         })

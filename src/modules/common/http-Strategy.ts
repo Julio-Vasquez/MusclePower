@@ -13,7 +13,7 @@ export class HttpStrategy extends PassportStrategy(Strategy)
 
     public async valid(token : string): Promise<any>
     {
-        const userValid:boolean = true;//await this.userService.validateUser(token);
+        const userValid:boolean = true;//await this.userService.validatetokenUser(token);
         if (!userValid) {
             throw new UnauthorizedException();
           }

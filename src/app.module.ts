@@ -3,15 +3,20 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { Connection } from 'typeorm';
 
 import { AppController } from './app.controller';
-
 import { AppService } from './app.service';
-import { productModule } from './modules/product/product.module';
+import { ProductModule } from './modules/product/product.module';
+import { CommonModule } from './modules/common/common.module';
+import { CategoryModule } from './modules/category/category.module';
 
 @Module({
   imports: [
-    TypeOrmModule.forRoot(
-    ),
-    productModule,
+    ProductModule,
+    CategoryModule,
+    CommonModule,
+    TypeOrmModule.forRootAsync({
+      useFactory: async (config) => (config.orm_config),
+      inject: ['ConfigService']
+    }),
   ],
   controllers: [AppController],
   providers: [AppService],

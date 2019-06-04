@@ -4,12 +4,14 @@ import { Logger } from '@nestjs/common';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 
 import { AppModule } from './app.module';
-import { mode, appName, appHost, appPrefix, appPort } from './environment/environment';
+import { mode, appName, appHost, appPrefix, appPort, node_env } from './modules/common/environment/environment';
+import { NestEnvironment } from '@nestjs/common/enums/nest-environment.enum';
 
 async function bootstrap() {
+  Logger.setMode((node_env)? NestEnvironment.RUN : NestEnvironment.TEST);
   const logger = new Logger('HttpsServer');
   const app = await NestFactory.create(AppModule,{ cors: true});
-
+  
   app.enableCors();
   app.useGlobalPipes(new ValidationPipe());
   app.setGlobalPrefix(appPrefix);
@@ -32,13 +34,12 @@ async function bootstrap() {
 
   const document = SwaggerModule.createDocument(app, credentials);
   SwaggerModule.setup('Muscle Power', app, document);
-  console.log(logger);
-  await app.listen(appPort,() => {
-    logger.log(
-      (mode)?
-        `${appName} => Server running on ${appHost}:${appPort}/${appPrefix}/`: 
-        `${appName} => Modo Development => ${appHost}:${appPort}/${appPrefix}/`
+  await app.listen(appPort,()=>{
+    logger.log( (mode)?
+      `${appName} => Server running on ${appHost}:${appPort}/${appPrefix}/`: 
+      `${appName} => Modo Development => ${appHost}:${appPort}/${appPrefix}/`
     );
-  });
+  });     
+  
 }
 bootstrap();

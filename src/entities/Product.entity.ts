@@ -1,10 +1,5 @@
-import {
-    Column,
-    Entity,
-    PrimaryGeneratedColumn,
-    PrimaryColumn,
-    ManyToOne,
-    JoinColumn
+import { Column,
+    Entity, PrimaryGeneratedColumn, ManyToOne, JoinColumn
 } from "typeorm";
 
 import { Category } from './category.entity';
@@ -84,11 +79,11 @@ export class Product
     })
     imgNutritionalTable : string;
 
-    @ManyToOne(type => Trademark, trademark => trademark.products, {nullable: false})
-    @JoinColumn({name: 'fk_trademark'})
+    @ManyToOne(type => Trademark, trademark => trademark.products, {nullable: false,onDelete: 'CASCADE',onUpdate: 'CASCADE'})
+    @JoinColumn({ name: 'trademark'})
     trademark: Trademark;
 
-    @ManyToOne(type => Category, category => category.products, { nullable: false})
-    @JoinColumn({name: 'category'})
+    @ManyToOne(type => Category, category => category.products, { nullable: false,onDelete: 'CASCADE',onUpdate: 'CASCADE'})
+    @JoinColumn({ name: 'category'})
     category: Category;
 }
