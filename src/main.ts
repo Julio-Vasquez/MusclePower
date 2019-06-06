@@ -3,7 +3,7 @@ import { ValidationPipe } from '@nestjs/common';
 import { Logger } from '@nestjs/common';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 
-import { AppModule } from './app.module';
+import { AppModule } from './modules/app.module';
 import { mode, appName, appHost, appPrefix, appPort, node_env } from './modules/common/environment/environment';
 import { NestEnvironment } from '@nestjs/common/enums/nest-environment.enum';
 

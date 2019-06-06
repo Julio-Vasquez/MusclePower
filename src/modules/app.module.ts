@@ -4,9 +4,9 @@ import { Connection } from 'typeorm';
 
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { ProductModule } from './modules/product/product.module';
-import { CommonModule } from './modules/common/common.module';
-import { CategoryModule } from './modules/category/category.module';
+import { ProductModule } from './product/product.module';
+import { CommonModule } from './common/common.module';
+import { CategoryModule } from './category/category.module';
 
 @Module({
   imports: [

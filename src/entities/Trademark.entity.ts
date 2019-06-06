@@ -1,4 +1,4 @@
-import { Column, Entity, PrimaryGeneratedColumn, OneToMany } from "typeorm";
+import { Column, Entity, PrimaryGeneratedColumn, OneToMany, PrimaryColumn } from "typeorm";
 
 import { Product } from './product.entity';
 
@@ -15,6 +15,7 @@ export class Trademark
         type:"bigint", 
         name:"id"
     })
+    @PrimaryColumn()
     id : number;
 
 

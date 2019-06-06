@@ -1,6 +1,4 @@
-import { Column,
-    Entity, PrimaryGeneratedColumn, ManyToOne, JoinColumn
-} from "typeorm";
+import { Column, Entity, PrimaryGeneratedColumn, ManyToOne, JoinColumn, PrimaryColumn } from "typeorm";
 
 import { Category } from './category.entity';
 import { Trademark } from './trademark.entity';
@@ -19,6 +17,7 @@ export class Product
         type:"bigint", 
         name:"id"
     })
+    @PrimaryColumn()
     id : number;
 
     @Column({

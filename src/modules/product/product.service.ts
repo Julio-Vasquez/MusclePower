@@ -17,7 +17,7 @@ export class ProductService {
 
   public async findAll()
   {
-    return ;
+    return await this.repository.find();
   }
 
   public async findByName(name: string)

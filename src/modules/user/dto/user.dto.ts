@@ -1,8 +1,3 @@
-import { SignupDto } from './../../auth/dto/signup.dto';
-
-export class UserDto
-{
-    public userDto:SignupDto;
-    constructor(){}
+export class UserDto{
+    
 }
-export default new UserDto();

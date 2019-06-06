@@ -1,12 +1,7 @@
-import { IsEnum, IsNotEmpty, IsString, MinLength, MaxLength} from 'class-validator';
+import {  IsNotEmpty, IsString, MinLength, MaxLength } from 'class-validator';
 
 import { ApiModelProperty } from '@nestjs/swagger';
 
-export enum state{
-    Active = 'Activo',
-    Inactive = 'Inactivo'
-
-}
 export class CategoryDto{
 
     @ApiModelProperty({
@@ -24,14 +19,4 @@ export class CategoryDto{
     })
     @IsNotEmpty()
     public readonly name : string;
-
-    @ApiModelProperty({
-        required: true,
-        enum: ['Activo', 'Inactivo']
-    })
-    @IsNotEmpty()
-    @IsEnum(state)
-    public readonly state : state;
-
-
 }

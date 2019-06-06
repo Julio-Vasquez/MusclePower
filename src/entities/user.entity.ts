@@ -1,18 +1,14 @@
-import {
-Column,
-Entity,
-PrimaryGeneratedColumn,
-PrimaryColumn
-} from "typeorm";
+import { Column, Entity, PrimaryGeneratedColumn, PrimaryColumn } from "typeorm";
 
 export enum UserRole {
     ADMIN = "admin",
     USER = "user"
 }
 
-export enum Gender {
-    M = "Masculino",
-    F = "Femenino"
+export enum State 
+{
+    Activo ='Activo',
+    Inactivo = 'Inactivo'
 }
 
 @Entity("User")
@@ -57,6 +53,14 @@ export class User {
     public password : string
 
 
+    @Column({ 
+        nullable:true,
+        length:15,
+        name:"telephone"
+        })
+    public telephone : string | null;
+
+
     @Column({
         type: "enum",
         enum: UserRole,
@@ -65,21 +69,9 @@ export class User {
     public role: UserRole
 
     @Column({
-        type: "enum",
-        enum: Gender
+        nullable: false,
+        type : "enum",
+        enum: State
     })
-    public gender: string
-
-    @Column({ 
-        nullable:true,
-        length:15,
-        name:"telephone"
-        })
-    public telephone : string | null;
-
-    @Column({ 
-        nullable:false,
-        name:"date_register"
-        })
-    public birthdate : Date; 
+    state: string;
 }

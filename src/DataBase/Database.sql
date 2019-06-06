@@ -26,3 +26,15 @@ BEGIN
 END;
 $$
 DELIMITER;
+
+DROP PROCEDURE IF EXISTS `Insert_Trademark`;
+
+DELIMITER $$
+CREATE PROCEDURE `Insert_Trademark`
+(
+    
+)
+BEGIN
+END;
+$$
+DELIMITER;

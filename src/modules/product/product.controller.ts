@@ -14,12 +14,8 @@ export class ProductController {
   }
 
     @Get('allProducts')
-    public async findAll(): Promise<Product[]>
+    public async findAll():Promise<any[]>
     {
-      return Response
-      .status({ status : HttpStatus.OK, state: 'OK'})
-      .message('Operaccion exitosa')
-      .json(this.service.findAll())
-      ;
+      return await this.service.findAll();
     }
 }

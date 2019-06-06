@@ -1,13 +1,16 @@
 import { Controller, Post, Body, HttpStatus, Put, Param, Get, Delete } from '@nestjs/common';
 import Response from '../common/response';
 import { ApiBearerAuth, ApiOperation, ApiResponse, ApiUseTags } from '@nestjs/swagger';
-import { userService } from './user.service';
+import { UserService } from './user.service';
 
 @ApiBearerAuth()
 @ApiUseTags('Usuario')
-@Controller('user')
-export class userController {
-  constructor(private readonly users: userService) {}
+@Controller('User')
+export class UserController 
+{
+  constructor(
+    private readonly users: UserService
+    ) {}
 
   @ApiOperation({ title: 'Listado de usuarios' })
   @ApiResponse({
