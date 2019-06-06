@@ -1,3 +1,5 @@
+
+
 <p align="center">
   <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo_text.svg" width="320" alt="Nest Logo" /></a>
 </p>
@@ -63,7 +65,15 @@ $ npm run test:e2e
 # test coverage
 $ npm run test:cov
 ```
+## Authors
+ 
+ 
+* **Julio Vásquez** - *Initial work* - [DarKPhuRioN](https://github.com/DarKPhuRioN)
+* **David Calderon** - *Initial work* - [JeisonCuestas](https://github.com/JeisonCuesta)
 
+
+	See also the list of [contributors](https://github.com/DarKPhuRioN/MusclePower/CONTRIBUTING.md) who participated in this project.
+  
 ## Support
 
 Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
@@ -76,4 +86,5 @@ Nest is an MIT-licensed open source project. It can grow thanks to the sponsors 
 
 ## License
 
-  Nest is [MIT licensed](LICENSE).
+  Nest is [MIT licensed](https://github.com/DarKPhuRioN/tunel-song/blob/master/LICENSE).
+  
