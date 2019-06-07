@@ -40,7 +40,27 @@ export class ProductService {
     .execute();
   }
 
+  public async findByLike()
+  {
+    return;
+  }
+
   public async createProduct()
+  {
+    return;
+  }
+
+  public async updateProduct()
+  {
+    return;
+  }
+
+  public async deleteProduct()
+  {
+    return;
+  }
+
+  public async buyProduct(id: number)
   {
     return;
   }

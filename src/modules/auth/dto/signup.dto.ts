@@ -16,7 +16,7 @@ export enum UserRole {
     USER = "user"
 }
 
-export class SignupDto 
+export class SignUpDto 
 {
     @ApiModelProperty({
         required: true,

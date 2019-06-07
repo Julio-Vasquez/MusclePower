@@ -20,7 +20,7 @@ export class Response{
     public json(Data? : any)
     {
       this.Data = Data;
-      return{
+      return {
         ...this.State,
         message: this.Message,
         data: this.Data

@@ -1,15 +1,15 @@
 export class productDto
 {
 
-    id : number;
-    name : string;
-    state: string;
-    description : string;
-    price : number;
-    cant : number;
-    adictionalInformation : string;
-    imgProduct : string;
-    imgNutritionalTable : string;
-    fk_trademark: number;
-    fk_category: number;
+   public readonly id : number;
+   public readonly name : string;
+   public readonly state: string;
+   public readonly description : string;
+   public readonly price : number;
+   public readonly cant : number;
+   public readonly adictionalInformation : string;
+   public readonly imgProduct : string;
+   public readonly imgNutritionalTable : string;
+   public readonly fk_trademark: number;
+   public readonly fk_category: number;
 }

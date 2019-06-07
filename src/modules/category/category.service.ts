@@ -3,7 +3,6 @@ import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Category } from './../../entities/category.entity';
 import { CategoryDto } from './dto/category.dto';
-import { Query } from 'typeorm/driver/Query';
 
 
 @Injectable()
@@ -18,7 +17,7 @@ export class CategoryService{
             this.repository.createQueryBuilder()
             .insert()
             .into(Category)
-            .values([{ name: category.name, state: category.state}])
+            .values([{ name: category.name, state: 'Activo'}])
             .execute();
         }catch(err){
             return false;
@@ -35,5 +34,24 @@ export class CategoryService{
             return false;
         }
         return true;
+    }
+
+    public async listCategory(): Promise<Category[]>
+    {
+        return;
+    }
+
+    public async findByName(name: string):Promise<Category>{
+        return ;
+    }
+
+    public async updateCategory(name: string, category: CategoryDto): Promise<boolean>
+    {
+        return;
+    }
+
+    public async deleteCategory(id :  number)
+    {
+        return ;
     }
 }

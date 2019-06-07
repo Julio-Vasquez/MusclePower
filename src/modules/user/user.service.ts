@@ -21,8 +21,28 @@ export class UserService
         return this.repositoryUser.find();
     }
 
-    public async Create(User: UserDto): Promise<User>
+    public async validUser()
+    {
+        return;
+    }
+
+    public async changePassword(username: string, newPassword: string)
     {
         return ;
+    }
+
+    public async updateUser(newUser: UserDto)
+    {
+        return ;
+    }
+
+    public async deleteUser(id : number)
+    {
+        return;
+    }
+
+    public async findByName(name: string)
+    {
+        return;
     }
 }

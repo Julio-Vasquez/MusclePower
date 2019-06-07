@@ -3,7 +3,7 @@ import { IsNotEmpty, IsString, MinLength, MaxLength, Max } from 'class-validator
 import { ApiModelProperty } from '@nestjs/swagger';
 
 const min:string = 'Debe tener al menos ', 
-max:string ='Deber contener maximo ';
+      max : string ='Deber contener maximo ';
 
 export class TrademarkDto
 {
