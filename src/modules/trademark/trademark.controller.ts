@@ -1,36 +1,51 @@
-import { IsNotEmpty, IsString, MinLength, MaxLength, Max } from 'class-validator';
+import { Controller, Post, Body, HttpStatus, Put, Param, Get, Delete } from '@nestjs/common';
 
-import { ApiModelProperty } from '@nestjs/swagger';
-
-const min:string = 'Debe tener al menos ', 
-      max : string ='Deber contener maximo ';
-
-export class TrademarkDto
+import Response from './../common/response';
+import { TrademarkService } from './trademark.service';
+import { Trademark } from './../../entities/trademark.entity';
+import { TrademarkDto } from './dto/trademark.dto';
+ 
+@Controller('Trademark')
+export class TrademarkController
 {
-    @ApiModelProperty({
-        required: true,
-        type: String,
-        minLength:4,
-        maxLength:150
-    })
-    @IsString()
-    @IsNotEmpty()
-    @MinLength(4,{ message: min + '4 Caracteres' })
-    @MaxLength(150,{ message: max + '150 Caracteres' })
-    public readonly name : string;
+    constructor(
+        private readonly trademarkService: TrademarkService
+    )
+    {}
 
+    @Post('createtrademark')
+    public async createTrademark(@Body() trademarkDto: TrademarkDto): Promise<any>{
+        if(trademarkDto !== undefined){
+            const res = this.trademarkService.createTrademark(trademarkDto);
+            if(res){
+                return Response
+                .status({ status: HttpStatus.OK, state: 'OK'})
+                .message('Registro exitoso')
+                .json()
+            }
+        }
+    }
 
-    @ApiModelProperty({
-        required: true,
-        type: String,
-        minLength:5
-    })
-    @IsString()
-    @IsNotEmpty()
-    @MinLength(5,{
-        message:  min +'5 caracteres,de los cuales uno es el punto, 3 la extencion de la imagen y los restantes el nombre de la imagen'
-    })
-    public readonly img : string;
+    @Get('listtrademark')
+    public async listTrademark():Promise<Trademark[]>
+    {
+        return;
+    }
+
+    @Get('findByName/:name')
+    public async findByName(@Param('name') name: string): Promise<Trademark>{
+        return ;
+    }
+
+    @Put('updatetrademark/:name')
+    public async updateTrademark(@Body() trademark: TrademarkDto, @Param('name') name: string): Promise<boolean>{
+        return ;
+    }
+
+    @Delete('deletetrademark/:id')
+    public async deleteTrademark(@Param('id') id: number): Promise<boolean>{
+        return ;
+    }
 
 
 }

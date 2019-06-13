@@ -15,8 +15,12 @@ export class TrademarkDto
     })
     @IsString()
     @IsNotEmpty()
-    @MinLength(4,{ message: min + '4 Caracteres' })
-    @MaxLength(150,{ message: max + '150 Caracteres' })
+    @MinLength(4,{ 
+        message: min + '4 Caracteres' 
+    })
+    @MaxLength(150,{ 
+        message: max + '150 Caracteres' 
+    })
     public readonly name : string;
 
 
@@ -31,6 +35,4 @@ export class TrademarkDto
         message:  min +'5 caracteres,de los cuales uno es el punto, 3 la extencion de la imagen y los restantes el nombre de la imagen'
     })
     public readonly img : string;
-
-
 }

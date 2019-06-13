@@ -9,7 +9,9 @@ export class LoginDto {
         example: 'example@mail.com'
     })
     @IsNotEmpty()
-    @IsEmail({}, { message: "El correo no cumple con su formato" }) 
+    @IsEmail({}, {
+         message: "El correo no cumple con su formato" 
+    }) 
     correo: string;
     
     @ApiModelProperty({
@@ -19,6 +21,8 @@ export class LoginDto {
     })
     @IsNotEmpty()
     @IsString()
-    @Length(4, 30, { message: "La contraseña debe estar entre 4 a 30 letras" }) 
+    @Length(4, 30, {
+         message: "La contraseña debe estar entre 4 a 30 letras" 
+    }) 
     contrasena: string;
 }
