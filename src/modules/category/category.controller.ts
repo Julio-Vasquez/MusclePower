@@ -16,8 +16,9 @@ export class CategoryController
 
     @Post('createcategory')
     public async createCategory(@Body() categoryDto: CategoryDto): Promise<any>{
-        if(categoryDto !== undefined){
-            const res = this.categoryService.createCategory2(categoryDto);
+        if(categoryDto !== undefined)
+        {
+            const res =await  this.categoryService.createCategory(categoryDto);
             if(res){
                 return Response
                 .status({ status: HttpStatus.OK, state: 'OK'})
@@ -25,17 +26,33 @@ export class CategoryController
                 .json()
             }
         }
+        else
+        {
+            return Response
+            .status({status: HttpStatus.BAD_REQUEST, state: 'ERROR BAD_REQUEST'})
+            .message('No ha llegado ningun dato al servidor')
+            .json();
+        }
     }
 
     @Get('listcategory')
     public async listCategory():Promise<Category[]>
     {
-        return;
-    }
-
-    @Get('findbyname/:name')
-    public async findByName(@Param('name') name: string): Promise<Category>{
-        return ;
+        let res = await this.categoryService.listCategory();
+        if(res.length > 0 )
+        {
+            return Response
+            .status({status: HttpStatus.OK, state: 'OK'})
+            .message('Correcto')
+            .json({data: res});
+        }
+        else
+        {
+            return Response
+            .status({status: HttpStatus.NO_CONTENT, state: 'NO_CONTENT'})
+            .message('No hay registros de categorias.')
+            .json({data:[]});
+        }
     }
 
     @Put('updatecategory/:name')
@@ -44,7 +61,23 @@ export class CategoryController
     }
 
     @Delete('deletecategory/:id')
-    public async deleteCategory(@Param('id') id: number): Promise<boolean>{
-        return ;
+    public async deleteCategory(@Param('id') id: number): Promise<any>{
+        let res =await  this.categoryService.deleteCategory(id);
+        console.log(res);
+        if(res)
+        {
+            return Response
+            .status({status: HttpStatus.OK, state: 'OK'})
+            .message('Categoria Eliminada')
+            .json({data:[]})
+        }
+        else
+        {
+            return Response
+            .status({status: HttpStatus.NOT_MODIFIED, state: 'NO DELETE'})
+            .message('Categoria no fue Eliminada')
+            .json({data:[]})
+        }
+        
     }
 }

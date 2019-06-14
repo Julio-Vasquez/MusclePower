@@ -78,11 +78,13 @@ export class Product
     })
     imgNutritionalTable : string;
 
-    @ManyToOne(type => Trademark, trademark => trademark.products, {nullable: false,onDelete: 'CASCADE',onUpdate: 'CASCADE'})
-    @JoinColumn({ name: 'trademark'})
-    trademark: Trademark;
-
     @ManyToOne(type => Category, category => category.products, { nullable: false,onDelete: 'CASCADE',onUpdate: 'CASCADE'})
     @JoinColumn({ name: 'category'})
     category: Category;
+    
+    @ManyToOne(type => Trademark, trademark => trademark.products, { nullable: false,onDelete: 'CASCADE',onUpdate: 'CASCADE'})
+    @JoinColumn({ name: 'trademark'})
+    trademark: Trademark;
+
+   
 }

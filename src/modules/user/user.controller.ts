@@ -18,12 +18,28 @@ export class UserController
       description: 'devuelve el listado de usuarios existentes.',
   })
   @Get('ListUsers/')
-  public async ListArtist()
+  public async listUsers()
   {  
-     let res =await  this.users.ListUsers();
+    let res = await  this.users.ListUsers();
+    if(res.length > 1)
+    {
       return Response
       .status({status: HttpStatus.OK, state:'OK'})
       .message('Operacion Completa')
       .json(res);
+     }
+     else
+     {
+      return Response
+      .status({ status: HttpStatus.NO_CONTENT, state:'NO_CONTENT'})
+      .message('No existen mas usuarios')
+      .json();
+     }
+      
+  }
+
+  @Put()
+  public async updateUser(){
+    
   }
 }

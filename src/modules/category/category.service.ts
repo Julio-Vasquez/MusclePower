@@ -38,20 +38,30 @@ export class CategoryService{
 
     public async listCategory(): Promise<Category[]>
     {
-        return;
+       try 
+       {
+           return await this.repository.find();
+       } 
+       catch (error) 
+       {
+           return [];
+       }
     }
 
-    public async findByName(name: string):Promise<Category>{
-        return ;
-    }
 
     public async updateCategory(name: string, category: CategoryDto): Promise<boolean>
     {
         return;
     }
 
-    public async deleteCategory(id :  number)
+    public async deleteCategory(id :  number): Promise<boolean>
     {
-        return ;
+  
+        let res =await this.repository.delete(id);
+        console.log(res.affected);
+        return (res.affected > 0)? true: false;
+  
+    
+
     }
 }

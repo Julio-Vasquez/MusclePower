@@ -43,7 +43,7 @@ export class Trademark
     })
     state: string;
 
-    @OneToMany(type => Product, product => product.trademark,{ onDelete: 'CASCADE' ,onUpdate: 'CASCADE' })
+    @OneToMany(type => Product, product => product.trademark)
     products: Product[];
     
 } 

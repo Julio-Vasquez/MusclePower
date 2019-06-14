@@ -23,7 +23,7 @@ export class Response{
       return {
         ...this.State,
         message: this.Message,
-        data: this.Data
+        ...this.Data
       }
     }
     
