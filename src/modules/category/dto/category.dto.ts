@@ -1,22 +1,22 @@
-import {  IsNotEmpty, IsString, MinLength, MaxLength } from 'class-validator';
+import { IsNotEmpty, IsString, MinLength, MaxLength } from 'class-validator';
 
 import { ApiModelProperty } from '@nestjs/swagger';
 
-export class CategoryDto{
+export class CategoryDto {
 
     @ApiModelProperty({
         required: true,
         type: String,
-        minLength:4,
-        maxLength:150
+        minLength: 4,
+        maxLength: 150
     })
     @IsString()
-    @MinLength(4,{
+    @MinLength(4, {
         message: 'Debe tener al menos 4 Caracteres'
     })
-    @MaxLength(150,{
+    @MaxLength(150, {
         message: 'Debe contener maximo 150 caracteres'
     })
     @IsNotEmpty()
-    public readonly name : string;
+    public readonly name: string;
 }

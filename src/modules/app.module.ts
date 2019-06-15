@@ -9,20 +9,19 @@ import { CommonModule } from './common/common.module';
 import { CategoryModule } from './category/category.module';
 
 @Module({
-  imports: [
-    ProductModule,
-    CategoryModule,
-    CommonModule,
-    TypeOrmModule.forRootAsync({
-      useFactory: async (config) => (config.orm_config),
-      inject: ['ConfigService']
-    }),
-  ],
-  controllers: [AppController],
-  providers: [AppService],
+    imports: [
+        ProductModule,
+        CategoryModule,
+        CommonModule,
+        TypeOrmModule.forRootAsync({
+            useFactory: async (config) => (config.orm_config),
+            inject: ['ConfigService']
+        }),
+    ],
+    controllers: [AppController],
+    providers: [AppService],
 })
 
 export class AppModule {
-  constructor(private readonly connection: Connection){ 
-  }
+    constructor(private readonly connection: Connection) {}
 }

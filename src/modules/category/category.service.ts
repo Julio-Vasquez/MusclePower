@@ -1,67 +1,37 @@
 import { Injectable } from '@nestjs/common';
-import { Repository } from 'typeorm';
+import { Repository, DeleteResult } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Category } from './../../entities/category.entity';
 import { CategoryDto } from './dto/category.dto';
 
 
 @Injectable()
-export class CategoryService{
+export class CategoryService {
     constructor(
         @InjectRepository(Category)
         private readonly repository: Repository<Category>
-    ){}
+    ) { }
 
-    public async createCategory(category: CategoryDto): Promise<boolean>{
-        try{
-            this.repository.createQueryBuilder()
-            .insert()
-            .into(Category)
-            .values([{ name: category.name, state: 'Activo'}])
-            .execute();
-        }catch(err){
-            return false;
+    public async createCategory(category: CategoryDto): Promise<boolean> {
+        const res: Category = await this.repository.findOne({ name: `${category.name}` });
+        if (res === undefined) {
+            this.repository.insert({ name: category.name, state: 'Activo' });
+            return true;
         }
-        return true;
+        return false;
     }
 
-    public async createCategory2(category: CategoryDto): Promise<boolean>{
-        try{
-           let res = await this.repository.query(`CALL Insert_Category('${category.name}')`);
-           
-            console.log(res.affectedRows)
-        }catch(err){
-            return false;
-        }
-        return true;
-    }
-
-    public async listCategory(): Promise<Category[]>
-    {
-       try 
-       {
-           return await this.repository.find();
-       } 
-       catch (error) 
-       {
-           return [];
-       }
+    public async listCategory(): Promise<Category[]> {
+        return await this.repository.find();
     }
 
 
-    public async updateCategory(name: string, category: CategoryDto): Promise<boolean>
-    {
+    public async updateCategory(name: string, category: CategoryDto): Promise<boolean> {
         return;
     }
 
-    public async deleteCategory(id :  number): Promise<boolean>
-    {
-  
-        let res =await this.repository.delete(id);
-        console.log(res.affected);
-        return (res.affected > 0)? true: false;
-  
-    
-
+    public async deleteCategory(id: number): Promise<boolean> {
+        const res: DeleteResult = await this.repository.delete(id);
+        return (res.affected > 0) ? true : false;
     }
 }

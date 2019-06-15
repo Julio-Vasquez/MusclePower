@@ -19,7 +19,7 @@ export class TrademarkController
             const res = this.trademarkService.createTrademark(trademarkDto);
             if(res){
                 return Response
-                .status({ status: HttpStatus.OK, state: 'OK'})
+                .status({ statusCode: HttpStatus.OK, state: 'OK'})
                 .message('Registro exitoso')
                 .json()
             }

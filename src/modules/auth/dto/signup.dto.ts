@@ -1,14 +1,14 @@
 import { ApiModelProperty } from '@nestjs/swagger';
-import { 
-    Length, 
-    IsEmail, 
-    IsNotEmpty, 
-    MaxLength, 
-    MinLength, 
-    IsNumber, 
-    IsPhoneNumber, 
-    IsString, 
-    IsEnum 
+import {
+    Length,
+    IsEmail,
+    IsNotEmpty,
+    MaxLength,
+    MinLength,
+    IsNumber,
+    IsPhoneNumber,
+    IsString,
+    IsEnum
 } from 'class-validator';
 
 export enum UserRole {
@@ -16,18 +16,17 @@ export enum UserRole {
     USER = "user"
 }
 
-export class SignUpDto 
-{
+export class SignUpDto {
     @ApiModelProperty({
         required: true,
         type: String,
         minLength: 4,
         maxLength: 40
     })
-    @MinLength(4,{ 
-        message: "El nombre debe contener al menos 4 caracteres" 
+    @MinLength(4, {
+        message: "El nombre debe contener al menos 4 caracteres"
     })
-    @MaxLength(40,{ 
+    @MaxLength(40, {
         message: "El nombre debe contener maximo 45 caracteres"
     })
     @IsNotEmpty()
@@ -41,10 +40,10 @@ export class SignUpDto
         maxLength: 40
     })
     @IsString()
-    @MinLength(4,{ 
-        message: "El Apellido debe contener al menos 4 caracteres" 
+    @MinLength(4, {
+        message: "El Apellido debe contener al menos 4 caracteres"
     })
-    @MaxLength(40,{ 
+    @MaxLength(40, {
         message: "El Apellido debe contener maximo 45 caracteres"
     })
     @IsNotEmpty()
@@ -55,16 +54,16 @@ export class SignUpDto
         type: String,
         minLength: 4
     })
-    @IsEmail({}, { 
-        message: "El correo no cumple con su formato" 
+    @IsEmail({}, {
+        message: "El correo no cumple con su formato"
     })
     @IsNotEmpty()
     @IsString()
-    @MinLength(10,{ 
-        message: "El Correo no es valido" 
+    @MinLength(10, {
+        message: "El Correo no es valido"
     })
     readonly email: string;
-    
+
     @ApiModelProperty({
         required: true,
         type: String,
@@ -72,11 +71,11 @@ export class SignUpDto
         maxLength: 30,
         default: '***********'
     })
-    @Length(4, 30, { 
-        message: "La contraseña debe estar entre 4 a 30 letras" 
+    @Length(4, 30, {
+        message: "La contraseña debe estar entre 4 a 30 letras"
     })
     @IsNotEmpty()
-    @IsString() 
+    @IsString()
     readonly password: string;
 
     @ApiModelProperty({
@@ -88,8 +87,8 @@ export class SignUpDto
     @IsNumber()
     @IsPhoneNumber('CO')
     @IsNotEmpty()
-    @Length(10, 15, { 
-        message: "El celular debe estar entre 10 a 15 números" 
+    @Length(10, 15, {
+        message: "El celular debe estar entre 10 a 15 números"
     })
     readonly telephone: string;
 
@@ -103,7 +102,7 @@ export class SignUpDto
     @IsString()
     @IsNotEmpty()
     @IsEnum(UserRole)
-    @Length(4,5)
-    public readonly role : string;
+    @Length(4, 5)
+    public readonly role: string;
 }
 

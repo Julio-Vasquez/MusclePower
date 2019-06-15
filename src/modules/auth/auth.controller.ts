@@ -6,7 +6,5 @@ import Response from '../common/response';
 @ApiUseTags('Autenticación')
 @Controller('auth')
 export class AuthController {
-  constructor() 
-    {
-    }
+    constructor() {}
 }

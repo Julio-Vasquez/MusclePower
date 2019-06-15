@@ -6,17 +6,15 @@ import { Strategy } from 'passport-http-bearer';
 @Injectable()
 export class HttpStrategy extends PassportStrategy(Strategy)
 {
-    constructor(/*private readonly userService: userService*/)
-    {
+    constructor(/*private readonly userService: userService*/) {
         super();
     }
 
-    public async valid(token : string): Promise<any>
-    {
-        const userValid:boolean = true;//await this.userService.validatetokenUser(token);
+    public async valid(token: string): Promise<any> {
+        const userValid: boolean = true;//await this.userService.validatetokenUser(token);
         if (!userValid) {
             throw new UnauthorizedException();
-          }
-          return userValid;
+        }
+        return userValid;
     }
 }

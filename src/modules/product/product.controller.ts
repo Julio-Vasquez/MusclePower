@@ -9,13 +9,10 @@ import { Product } from '../../entities/product.entity';
 @Controller('Product')
 export class ProductController {
 
-  constructor(private readonly service: ProductService) 
-  {
-  }
+    constructor(private readonly service: ProductService) {}
 
-    @Get('allProducts')
-    public async findAll():Promise<any[]>
-    {
-      return await this.service.findAll();
+    @Get('allproducts')
+    public async findAll(): Promise < any[] > {
+        return await this.service.findAll();
     }
 }
