@@ -1,5 +1,5 @@
-import { Injectable } from '@nestjs/common';
-import { Repository, DeleteResult } from 'typeorm';
+import { Injectable, Res } from '@nestjs/common';
+import { Repository, DeleteResult, UpdateResult } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Category } from './../../entities/category.entity';
 import { CategoryDto } from './dto/category.dto';
@@ -15,7 +15,7 @@ export class CategoryService {
     public async createCategory(category: CategoryDto): Promise<boolean> {
         const res: Category = await this.repository.findOne({ name: `${category.name}` });
         if (res === undefined) {
-            this.repository.insert({ name: category.name, state: 'Activo' });
+            await this.repository.insert({ name: category.name, state: 'Activo' });
             return true;
         }
         return false;
@@ -25,9 +25,16 @@ export class CategoryService {
         return await this.repository.find();
     }
 
-
-    public async updateCategory(name: string, category: CategoryDto): Promise<boolean> {
-        return;
+    public async updateCategory(category: CategoryDto, name: string): Promise<boolean> {
+        const res:UpdateResult = await this.repository
+            .createQueryBuilder()
+            .update(Category)
+            .set({ name : category.name})
+            .where("name = :name",{name : name})
+            .execute()
+        ;
+        //const res2= await this.repository.update(name,{name:category.name}); toma name como id
+        return (res.raw.affectedRows > 0);
     }
 
     public async deleteCategory(id: number): Promise<boolean> {

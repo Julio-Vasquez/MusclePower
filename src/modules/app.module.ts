@@ -7,12 +7,14 @@ import { AppService } from './app.service';
 import { ProductModule } from './product/product.module';
 import { CommonModule } from './common/common.module';
 import { CategoryModule } from './category/category.module';
+import { TrademarkModule } from './trademark/trademark.module';
 
 @Module({
     imports: [
         ProductModule,
         CategoryModule,
         CommonModule,
+        TrademarkModule,
         TypeOrmModule.forRootAsync({
             useFactory: async (config) => (config.orm_config),
             inject: ['ConfigService']

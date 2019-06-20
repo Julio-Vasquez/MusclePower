@@ -1,5 +1,5 @@
 import { Controller, Post, Body, HttpStatus, Put, Param, Get, Delete } from '@nestjs/common';
-import Response from '../common/response';
+import Response from './../common/response/response';
 import { ApiBearerAuth, ApiOperation, ApiResponse, ApiUseTags } from '@nestjs/swagger';
 import { UserService } from './user.service';
 

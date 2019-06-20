@@ -17,9 +17,8 @@ export class AuthMiddleware implements NestMiddleware {
                         return res.status(403).json(err);
                     }
                 })
-            } else {
+            } 
                 return res.status(401).json('Usted debe proveer un token de autenticación válido.');
-            }
         }
     }
 }

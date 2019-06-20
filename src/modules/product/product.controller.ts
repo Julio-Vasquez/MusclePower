@@ -1,7 +1,7 @@
 import { Controller, Get, Post, Body, Param, Res, HttpStatus } from '@nestjs/common';
 import { ApiUseTags } from '@nestjs/swagger';
 
-import Response from '../common/response';
+import Response from './../common/response/response';
 import { ProductService } from './product.service';
 import { Product } from '../../entities/product.entity';
 

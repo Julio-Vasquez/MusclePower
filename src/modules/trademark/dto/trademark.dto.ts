@@ -21,16 +21,4 @@ export class TrademarkDto {
         message: max + '150 Caracteres'
     })
     public readonly name: string;
-
-    @ApiModelProperty({
-        required: true,
-        type: String,
-        minLength: 5
-    })
-    @IsString()
-    @IsNotEmpty()
-    @MinLength(5, {
-        message: min + '5 caracteres,de los cuales uno es el punto, 3 la extencion de la imagen y los restantes el nombre de la imagen'
-    })
-    public readonly img: string;
 }
