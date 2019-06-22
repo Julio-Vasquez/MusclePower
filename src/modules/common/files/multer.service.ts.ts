@@ -4,12 +4,12 @@ import { HttpException } from '@nestjs/common';
 import * as moment from 'moment';
 
 export class UploadFile {
-
-    public configMulter(folder:string):any {
+	//limits en byts (1kb = 1000)
+    public configMulter(folder: string, limits: number):any {
 		moment.locale('co');
 		return {
 			limits:{
-				fileSize: 1000000
+				fileSize: limits
 			},
 			fileFilter: (req, file, cb) =>
 			{
@@ -22,14 +22,24 @@ export class UploadFile {
 			storage: diskStorage({
 				destination: (req, file, cb) => 
 				{
-					if(!existsSync(folder)){
-						mkdirSync(folder);
+					if(!existsSync(`./uploads/${folder}/`)){
+						mkdirSync(`./uploads/${folder}/`);
 					}
-					cb(null, `./uploads/${folder}/`) 
+					cb(null, `./uploads/${folder}/`); 
 				},
 				filename: (req, file, cb) => 
 				{ 
-					cb(null, file.fieldname +'-'+ folder+ '-' + moment().format('YYYY-MMMM-DD') + '.' + file.mimetype.split("/")[1]) 
+					cb(null, 
+						file.fieldname 
+						+'-'
+						+folder 
+						+'-Date-'
+						+ moment().format('YYYY-MMMM-DD')
+						+'-Time-'
+						+moment().format('h-mm-ss-a') 
+						+'.' 
+						+ file.mimetype.split("/")[1]
+					); 
 				}
 			})
 		};

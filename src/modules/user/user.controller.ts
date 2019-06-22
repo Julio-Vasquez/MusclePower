@@ -1,11 +1,14 @@
 import { Controller, Post, Body, HttpStatus, Put, Param, Get, Delete } from '@nestjs/common';
-import Response from './../common/response/response';
+
 import { ApiBearerAuth, ApiOperation, ApiResponse, ApiUseTags } from '@nestjs/swagger';
+import Response from './../common/response/response';
+
 import { UserService } from './user.service';
+import { User } from "./../../entities/user.entity";
 
 @ApiBearerAuth()
 @ApiUseTags('Usuario')
-@Controller('User')
+@Controller('user')
 export class UserController {
     constructor(
         private readonly users: UserService
@@ -16,14 +19,14 @@ export class UserController {
         status: 200,
         description: 'devuelve el listado de usuarios existentes.',
     })
-    @Get('ListUsers/')
+    @Get('listssers/')
     public async listUsers() {
         let res = await this.users.ListUsers();
-        if (res.length > 1) {
+        if (res.length >= 1) {
             return Response
                 .status({ statusCode: HttpStatus.OK, state: 'OK' })
                 .message('Operacion Completa')
-                .json(res)
+                .json({data: res})
             ;
         } else {
             return Response
@@ -32,6 +35,16 @@ export class UserController {
                 .json()
             ;
         }
+    }
+    @Get('listusers/:name')
+    public async listUsersByName(@Param('name') name: string): Promise<User[]>{
+        let res:User[] =await  this.users.findByName(name);
+        if(res.length > 0){
+            return Response
+            .status({ statusCode: HttpStatus.OK, state: 'OK'})
+            .message('Operacion completada')
+            .json({data:res})
+        } 
 
     }
 

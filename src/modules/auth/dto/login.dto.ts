@@ -12,7 +12,7 @@ export class LoginDto {
     @IsEmail({}, {
         message: "El correo no cumple con su formato"
     })
-    correo: string;
+    email: string;
 
     @ApiModelProperty({
         required: true,
@@ -24,5 +24,5 @@ export class LoginDto {
     @Length(4, 30, {
         message: "La contraseña debe estar entre 4 a 30 letras"
     })
-    contrasena: string;
+    password: string;
 }

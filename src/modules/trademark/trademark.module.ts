@@ -11,7 +11,7 @@ import { Trademark } from './../../entities/trademark.entity';
     imports:[
         TypeOrmModule.forFeature([Trademark]),
         MulterModule.registerAsync({
-            useFactory: async (file) =>(file.configMulter('Trademarks')),
+            useFactory: async (file) =>(file.configMulter('Trademarks',1000000)),
             inject: ['UploadFile']
         })
     ],

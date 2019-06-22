@@ -10,6 +10,6 @@ export const appName = process.env.APP_NAME;
 export const appHost = process.env.APP_HOST;
 export const appPrefix = process.env.APP_URL_PREFIX;
 export const appPort = process.env.APP_PORT;
-export const JWTKey = process.env.JWT_KEY;
+export const JwtKey = process.env.JWT_KEY;
 export const hostSite = process.env.HOST_SITE;
 
