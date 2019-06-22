@@ -69,7 +69,7 @@ $ npm run test:cov
  
  
 * **Julio Vásquez** - *Initial work* - [DarKPhuRioN](https://github.com/DarKPhuRioN)
-* **David Calderon** - *Initial work* - [JeisonCuestas](https://github.com/JeisonCuesta)
+* **Jeison Cuesta** - *Initial work* - [JeisonCuestas](https://github.com/JeisonCuesta)
 
 
 	See also the list of [contributors](https://github.com/DarKPhuRioN/MusclePower/CONTRIBUTING.md) who participated in this project.
