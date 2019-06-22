@@ -1,10 +1,12 @@
-import { Controller, Post, Body, HttpStatus, Put } from '@nestjs/common';
-
-import { ApiBearerAuth, ApiOperation, ApiResponse, ApiUseTags } from '@nestjs/swagger';
+import { Controller, Post, Body, HttpStatus, Put, UseGuards } from '@nestjs/common';
+import { AuthGuard } from '@nestjs/passport';
+import { ApiOperation, ApiResponse, ApiUseTags } from '@nestjs/swagger';
 import { JwtService } from '@nestjs/jwt';
+
 import Response from '../common/response/response';
 
 import { AuthService } from './auth.service';
+
 import { LoginDto } from './dto/login.dto';
 import { SignUpDto } from './dto/signup.dto';
 
@@ -23,34 +25,45 @@ export class AuthController {
     })
     @ApiResponse({
         status: 200,
-        description: 'Login Correcto'
+        description: 'Login Correcto, retorna un token'
+    })
+    @ApiResponse({
+        status: 401,
+        description: 'credenciales invalidas, no autorizado'
+    })
+    @ApiResponse({
+        status: 400,
+        description: 'ningun dato llego al servidor'
     })
     @Post('/login')
     public async login(@Body() login: LoginDto): Promise<any> {
-
-        let res = await this.authService.login(login);
-        if (res !== undefined) {
+        //600, son 6 dias dado el formato de moment (YYYYMMDDHmm)
+        if (login !== undefined) {
+            let res = await this.authService.login(login, 600);
+            if (res !== undefined) {
+                return Response
+                    .status({ statusCode: HttpStatus.OK, state: 'OK' })
+                    .message('login OK')
+                    .json({
+                        data: this.jwtService.sign(res)
+                    })
+                ;
+            }
             return Response
-                .status({})
-                .message()
-                .json({
-                    data: this.jwtService.sign(
-                        {
-                            res
-                        }
-                    )
-                })
+                .status({ statusCode: HttpStatus.UNAUTHORIZED, state: 'UNAUTHORIZED'})
+                .message('Credenciales no validas')
+                .json({ data: [] })
             ;
         }
+        return Response
+            .status({ statusCode: HttpStatus.BAD_REQUEST, state:'BAD_REQUEST' })
+            .message('Ningun dato llego al servidor')
+            .json({ data: [] })
+        ;
     }
 
     @Post('/singup')
     public async signup(@Body() signup: SignUpDto) {
-        return;
-    }
-
-    @Put()
-    public async restorePassword() {
         return;
     }
 }

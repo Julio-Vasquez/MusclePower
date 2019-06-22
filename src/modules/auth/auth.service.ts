@@ -1,12 +1,13 @@
 import { Injectable } from '@nestjs/common';
-import { Connection, Repository } from 'typeorm';
+import { Repository } from 'typeorm';
 import { JwtService } from '@nestjs/jwt';
 import { InjectRepository } from '@nestjs/typeorm';
+import * as moment from 'moment';
 
 import { User } from './../../entities/user.entity';
 import { LoginDto } from './dto/login.dto';
-import { UserService } from './../user/user.service';
 import { SignUpDto } from './dto/signup.dto';
+import { UserService } from './../user/user.service';
 
 @Injectable()
 export class AuthService {
@@ -18,8 +19,8 @@ export class AuthService {
         private readonly repository: Repository<User>
     ) {}
 
-    public async login(login: LoginDto):Promise<User> {
-        return await this.repository
+    public async login(login: LoginDto, expiration:number):Promise<any> {
+        const res = await this.repository
             .createQueryBuilder("user")
             .select("user.id","idUser")
             .addSelect("user.names", "namesUser")
@@ -32,15 +33,31 @@ export class AuthService {
             .andWhere("user.state ='Activo'")
             .execute()
         ;
+        const ini = parseInt(moment().format('YYYYMMDDhmm'));
+        const accessToken = {
+            id: res[0].idUser,
+            names: res[0].namesUser,
+            lastnames: res[0].lastnamesUser,
+            email: res[0].emailUser,
+            tel: res[0].telUser,
+            role: res[0].rolUser,
+            state: 'valid',
+            start: ini,
+            end: ini+expiration,
+            expiration: expiration
+        }
+        console.log(accessToken)
+        return accessToken;
     }
 
     public async signUp(signUp: SignUpDto) {
         return;
     }
 
-    public async validateUser(token:string): Promise<any>{
-        let payload = this.jwtService.decode(token);
-        if(payload)
+    public async validateUser(token): Promise<any>{
+        const payload = this.jwtService.decode(token);
+
+        if(payload && token.state ==='valid' && token.end <= parseInt(moment().format('YYYYMMDDhmm')))
             return await this.userService.validUser(payload);
         return false;
     }

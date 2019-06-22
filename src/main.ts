@@ -11,7 +11,7 @@ async function bootstrap() {
   Logger.setMode((node_env)? NestEnvironment.RUN : NestEnvironment.TEST);
   const logger = new Logger('HttpsServer');
   const app = await NestFactory.create(AppModule,{ cors: true});
-  
+
   app.enableCors();
   app.useGlobalPipes(new ValidationPipe());
   app.setGlobalPrefix(appPrefix);

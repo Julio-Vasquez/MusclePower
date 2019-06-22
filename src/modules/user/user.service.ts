@@ -45,14 +45,16 @@ export class UserService {
     }
 
     public async validUser(jwt: any): Promise<any> {
+        console.log(jwt.idUser)
         let res = await this.repository
             .createQueryBuilder("user")
             .select("user.id", "idUser")
             .addSelect("user.names", "namesUser")
             .addSelect("user.email", "emailUser")
             .where("user.id = :id", { id: jwt.id })
-            .execute();
-        console.log(res);
+            .limit(1)
+            .execute()
+        ;
         return (res.length > 0) ? jwt : false;
     }
 }

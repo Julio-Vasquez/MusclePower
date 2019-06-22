@@ -1,4 +1,5 @@
-import { Controller, Post, Body, HttpStatus, Put, Param, Get, Delete } from '@nestjs/common';
+import { Controller, Post, Body, HttpStatus, Put, Param, Get, Delete,UseGuards } from '@nestjs/common';
+import { AuthGuard } from '@nestjs/passport';
 
 import { ApiBearerAuth, ApiOperation, ApiResponse, ApiUseTags } from '@nestjs/swagger';
 import Response from './../common/response/response';
@@ -20,6 +21,7 @@ export class UserController {
         description: 'devuelve el listado de usuarios existentes.',
     })
     @Get('listssers/')
+    @UseGuards(AuthGuard())
     public async listUsers() {
         let res = await this.users.ListUsers();
         if (res.length >= 1) {
@@ -37,6 +39,7 @@ export class UserController {
         }
     }
     @Get('listusers/:name')
+    @UseGuards(AuthGuard())
     public async listUsersByName(@Param('name') name: string): Promise<User[]>{
         let res:User[] =await  this.users.findByName(name);
         if(res.length > 0){
@@ -44,12 +47,29 @@ export class UserController {
             .status({ statusCode: HttpStatus.OK, state: 'OK'})
             .message('Operacion completada')
             .json({data:res})
-        } 
+        }
+        return Response
+            .status({})
+            .message('')
+            .json({data:[]}); 
 
     }
 
     @Put()
+    @UseGuards(AuthGuard())
     public async updateUser() {
+
+    }
+
+    @Put()
+    @UseGuards(AuthGuard())
+    public async restorePassword(){
+
+    }
+
+    @Delete()
+    @UseGuards(AuthGuard())
+    public async deleteUser(){
 
     }
 }

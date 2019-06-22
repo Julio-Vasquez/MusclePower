@@ -9,9 +9,11 @@ import {
     Delete, 
     UploadedFile, 
     UseInterceptors,
-    FileInterceptor 
+    FileInterceptor,
+    UseGuards 
 } from '@nestjs/common';
 import { ApiOperation, ApiResponse, ApiUseTags} from '@nestjs/swagger';
+import{ AuthGuard } from '@nestjs/passport';
 
 import Response from './../common/response/response';
 
@@ -46,6 +48,7 @@ export class TrademarkController
         description: 'Jamas llego ningun dato al servidor'
     })
     @Post('createtrademark')
+    @UseGuards(AuthGuard())
     @UseInterceptors(FileInterceptor('img'))
     public async createTrademark(@Body() trademark: TrademarkDto, @UploadedFile() file): Promise<any>{
         if(trademark !== undefined && file){
@@ -147,6 +150,7 @@ export class TrademarkController
         description: 'Jamas llego ningun dato al servidor'
     })
     @Put('updatetrademark/:name')
+    @UseGuards(AuthGuard())
     public async updateTrademark(@Body() trademark: TrademarkDto, @Param('name') name: string): Promise<boolean>{
         if(trademark !== undefined){
             const res: boolean = await this.trademarkService.updateTrademark(trademark, name);
@@ -188,6 +192,7 @@ export class TrademarkController
         description: 'No se pudo modificar la Marca'
     })
     @Delete('deletetrademark/:id')
+    @UseGuards(AuthGuard())
     public async deleteTrademark(@Param('id') id: number): Promise<boolean>{
         const res: boolean = await this.trademarkService.deleteTrademark(id);
         if (res) {
@@ -203,6 +208,5 @@ export class TrademarkController
             .json()
         ;
     }
-
 
 }

@@ -1,6 +1,6 @@
 import { Injectable, NestMiddleware } from '@nestjs/common'
 import * as jwt from 'jsonwebtoken'
-import { JWTKey } from '../environment/environment';
+import { JwtKey } from '../environment/environment';
 
 @Injectable()
 export class AuthMiddleware implements NestMiddleware {
@@ -9,7 +9,7 @@ export class AuthMiddleware implements NestMiddleware {
         return (req, res, next) => {
             if (req.headers.authorization && req.headers.authorization.split(' ')[0] === 'Bearer') {
                 let token = req.headers.authorization.split(' ')[1]
-                jwt.verify(token, 'ticsor', function(err, payload) {
+                jwt.verify(token, JwtKey, function(err, payload) {
                     if (!err) {
                         req.correo = payload.correo;
                         next();

@@ -1,5 +1,6 @@
-import { Get, Controller, Post, Put, Body, HttpStatus, Param, Delete } from '@nestjs/common';
+import { Get, Controller, Post, Put, Body, HttpStatus, Param, Delete, UseGuards } from '@nestjs/common';
 import { ApiUseTags, ApiOperation, ApiResponse } from '@nestjs/swagger';
+import { AuthGuard } from '@nestjs/passport';
 
 import Response from './../common/response/response';
 
@@ -33,6 +34,7 @@ export class CategoryController {
         description: 'Jamas llego ningun dato al servidor'
     })
     @Post('createcategory')
+    @UseGuards(AuthGuard())
     public async createCategory(@Body() categoryDto: CategoryDto): Promise<any> {
         if (categoryDto !== undefined) {
             const res: boolean = await this.categoryService.createCategory(categoryDto);
@@ -102,6 +104,7 @@ export class CategoryController {
         description: 'Jamas llego ningun dato al servidor'
     })
     @Put('updatecategory/:name')
+    @UseGuards(AuthGuard())
     public async updateCategory(@Body() category: CategoryDto, @Param('name') name: string): Promise<any> {
         if(category !== undefined){
             const res: boolean = await this.categoryService.updateCategory(category, name);
@@ -144,6 +147,7 @@ export class CategoryController {
         description: 'No se pudo modificar la categoria'
     })
     @Delete('deletecategory/:id')
+    @UseGuards(AuthGuard())
     public async deleteCategory(@Param('id') id: number): Promise<any> {
         const res: boolean = await this.categoryService.deleteCategory(id);
         if (res) {
