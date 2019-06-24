@@ -1,6 +1,7 @@
 import { ApiModelProperty } from '@nestjs/swagger';
 import { IsNumber, IsString, IsNotEmpty, Min, MinLength, MaxLength } from 'class-validator';
-export class productDto {
+export class ProductDto {
+
    @ApiModelProperty({
       required: true,
       type: String,

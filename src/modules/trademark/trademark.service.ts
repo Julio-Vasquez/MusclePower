@@ -13,8 +13,8 @@ export class TrademarkService {
 
     public async createTrademark(trademark: TrademarkDto, fileurl: string): Promise<boolean> {
         const res: Trademark[] = await this.repository.find({name : trademark.name});
-        
-        if( res === undefined){
+        //res solo me dice si es diferente de undefine entonces !res me dice undefined
+        if( !res ){
             await  this.repository.insert({ name : trademark.name, img: fileurl, state: 'Activo' });
             return true;
         }

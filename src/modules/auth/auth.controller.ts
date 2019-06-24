@@ -9,7 +9,7 @@ import { AuthService } from './auth.service';
 
 import { LoginDto } from './dto/login.dto';
 import { SignUpDto } from './dto/signup.dto';
-
+import { RestorePasswordDto } from './dto/restorepassword.dto';
 
 @ApiUseTags('Autenticación')
 @Controller('auth')
@@ -40,7 +40,7 @@ export class AuthController {
         //600, son 6 dias dado el formato de moment (YYYYMMDDHmm)
         if (login !== undefined) {
             let res = await this.authService.login(login, 600);
-            if (res !== undefined) {
+            if (res) {
                 return Response
                     .status({ statusCode: HttpStatus.OK, state: 'OK' })
                     .message('login OK')
@@ -66,4 +66,11 @@ export class AuthController {
     public async signup(@Body() signup: SignUpDto) {
         return;
     }
+
+    @Put('restorepassword')
+    @UseGuards(AuthGuard())
+    public async restorePassword(@Body() rpDto: RestorePasswordDto) {
+
+    }
+
 }

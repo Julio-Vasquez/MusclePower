@@ -9,21 +9,46 @@ export class ProductService {
 
     constructor
         (
-            private readonly connection: Connection,
-            @InjectRepository(Product) private readonly repository: Repository < Product >
-        ) {}
+            @InjectRepository(Product)
+            private readonly repository: Repository<Product>
+        ) { }
 
-    public async findAll() {
-        return await this.repository.find();
+    public async findAll(): Promise<Product[]> {
+        return await this.repository
+            .createQueryBuilder('product')
+            .select("product.name", "name")
+            .addSelect("product.description", "description")
+            .addSelect("product.price", "price")
+            .addSelect("product.cant", "cant")
+            .addSelect("category.name", "category")
+            .addSelect("trademark.name", "nameTrademark")
+            .addSelect("trademark.img", "imgTrademark")
+            .addSelect("product.imgProduct", "imageProduct")
+            .addSelect("product.imgNutritionalTable", "imagenutritional")
+            .innerJoin("product.trademark", "trademark")
+            .innerJoin("product.category", "category")
+            .execute()
+        ;
     }
 
     public async findByName(name: string) {
         return await this.repository
-            .createQueryBuilder('products')
+            .createQueryBuilder('product')
             .select("product.name", "name")
+            .addSelect("product.description", "description")
             .addSelect("product.price", "price")
-            .where("product.name = :name ", { name: name })
-            .execute();
+            .addSelect("product.cant", "cant")
+            .addSelect("category.name", "category")
+            .addSelect("trademark.name", "nameTrademark")
+            .addSelect("trademark.img", "imgTrademark")
+            .addSelect("product.imgProduct", "imageProduct")
+            .addSelect("product.imgNutritionalTable", "imagenutritional")
+            .innerJoin("product.trademark", "trademark")
+            .innerJoin("product.category", "category")
+            .where("product.name like :name ", { name: '%'+ name + '%' })
+            .andWhere("product.state = 'Activo' ")
+            .execute()
+        ;
     }
 
     public async findById(id: number) {
@@ -32,11 +57,8 @@ export class ProductService {
             .select("product.name", "name")
             .addSelect("product.price", "price")
             .where("product.id = :id ", { id: id })
-            .execute();
-    }
-
-    public async findByLike() {
-        return;
+            .execute()
+            ;
     }
 
     public async createProduct() {

@@ -1,10 +1,11 @@
 import { Injectable } from '@nestjs/common';
-import { Repository, Like } from 'typeorm';
+import { Repository, Like, UpdateResult, DeleteResult } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 
 import { UserDto } from './dto/user.dto';
 
 import { User } from 'src/entities/user.entity';
+import { ChangePasswordDto } from './dto/changepassword.dto';
 
 @Injectable()
 export class UserService {
@@ -32,16 +33,34 @@ export class UserService {
         ;
     }
 
-    public async changePassword(username: string, newPassword: string) {
-        return;
+    public async changePassword(newPassword: ChangePasswordDto): Promise<boolean> {
+        const res:UpdateResult = await this.repository
+            .createQueryBuilder("user")
+            .update(User)
+            .set({password: `PASSWORD(${newPassword.password})`})
+            .where("user.email = :email",{ email: newPassword.email })
+            .execute()
+        ;
+        return (res.raw.affectedRows > 0);
     }
 
-    public async updateUser(newUser: UserDto) {
-        return;
+    public async updateUser(newUser: UserDto, email:string ):Promise<boolean> {
+        const res:UpdateResult = await this.repository
+            .createQueryBuilder("user")
+            .update(User)
+            .set({
+                names: newUser.names,
+                lastnames: newUser.lastNames,
+                telephone: newUser.telephone
+            })
+            .where("user.email = :email",{email: email})
+            .execute();
+        return (res.raw.affectedRows > 0);
     }
 
     public async deleteUser(id: number) {
-        return;
+        const res: DeleteResult = await this.repository.delete(id);
+        return(res.affected > 0);
     }
 
     public async validUser(jwt: any): Promise<any> {

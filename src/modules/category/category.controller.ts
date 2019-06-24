@@ -33,7 +33,7 @@ export class CategoryController {
         status: 400,
         description: 'Jamas llego ningun dato al servidor'
     })
-    @Post('createcategory')
+    @Post('createcategory/')
     @UseGuards(AuthGuard())
     public async createCategory(@Body() categoryDto: CategoryDto): Promise<any> {
         if (categoryDto !== undefined) {
@@ -70,7 +70,7 @@ export class CategoryController {
         status: 204,
         description: 'Operación exitosa, pero sin ningun registro de categoria encontrado'
     })
-    @Get('listcategory')
+    @Get('listcategory/')
     public async listCategory(): Promise<Category[]> {
         const res = await this.categoryService.listCategory();
         if (res.length > 0) {
@@ -140,11 +140,11 @@ export class CategoryController {
     })
     @ApiResponse({
         status: 200,
-        description: 'Categoria modificada o actualizada correctamente'
+        description: 'Categoria eliminada correctamente'
     })
     @ApiResponse({
         status: 304,
-        description: 'No se pudo modificar la categoria'
+        description: 'No se pudo eliminar la categoria'
     })
     @Delete('deletecategory/:id')
     @UseGuards(AuthGuard())
@@ -163,4 +163,5 @@ export class CategoryController {
             .json()
         ;
     }
+
 }

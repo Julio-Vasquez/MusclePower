@@ -43,8 +43,7 @@ export class AuthService {
             role: res[0].rolUser,
             state: 'valid',
             start: ini,
-            end: ini+expiration,
-            expiration: expiration
+            end: ini+expiration
         }
         console.log(accessToken)
         return accessToken;
@@ -55,9 +54,8 @@ export class AuthService {
     }
 
     public async validateUser(token): Promise<any>{
-        const payload = this.jwtService.decode(token);
-
-        if(payload && token.state ==='valid' && token.end <= parseInt(moment().format('YYYYMMDDhmm')))
+        const payload:any = this.jwtService.decode(token);
+        if(payload && payload.end <= parseInt(moment().format('YYYYMMDDhmm')))
             return await this.userService.validUser(payload);
         return false;
     }

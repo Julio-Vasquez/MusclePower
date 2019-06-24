@@ -14,7 +14,7 @@ export class CategoryService {
 
     public async createCategory(category: CategoryDto): Promise<boolean> {
         const res: Category = await this.repository.findOne({ name: `${category.name}` });
-        if (res === undefined) {
+        if (!res) {
             await this.repository.insert({ name: category.name, state: 'Activo' });
             return true;
         }

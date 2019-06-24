@@ -2,10 +2,7 @@ import { parse } from 'dotenv';
 import * as Joi from '@hapi/joi';
 import { existsSync, readFileSync } from 'fs';
 import { Logger } from '@nestjs/common';
-
-interface EnvConfig {
-    [prop: string]: string;
-}
+import { EnvConfig } from './envconfig.interface';
 
 export class ConfigService {
     private readonly env: EnvConfig;
@@ -65,7 +62,7 @@ export class ConfigService {
         }
     }
 
-    get AppName(): string {
+    get appName(): string {
         return this.env.APP_NAME;
     }
 
