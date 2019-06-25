@@ -1,8 +1,8 @@
 import { Column, Entity, PrimaryGeneratedColumn, PrimaryColumn } from "typeorm";
 
 export enum UserRole {
-    ADMIN = "admin",
-    USER = "user"
+    Admin= 'admin',
+    User = 'user'
 }
 
 export enum State 
@@ -64,14 +64,14 @@ export class User {
     @Column({
         type: "enum",
         enum: UserRole,
-        default: UserRole.USER
+        default: UserRole.User
     })
-    public role: UserRole
+    public role: string;
 
     @Column({
         nullable: false,
         type : "enum",
         enum: State
     })
-    state: string;
+    public state: string;
 }

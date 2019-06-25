@@ -5,10 +5,8 @@ import {
     IsNotEmpty,
     MaxLength,
     MinLength,
-    IsNumber,
     IsPhoneNumber,
-    IsString,
-    IsEnum
+    IsString
 } from 'class-validator';
 
 export enum UserRole {
@@ -47,7 +45,7 @@ export class SignUpDto {
         message: "El Apellido debe contener maximo 45 caracteres"
     })
     @IsNotEmpty()
-    readonly lastname: string;
+    readonly lastnames: string;
 
     @ApiModelProperty({
         required: true,
@@ -84,15 +82,15 @@ export class SignUpDto {
         minLength: 10,
         maxLength: 15
     })
-    @IsNumber()
+    
     @IsPhoneNumber('CO')
     @IsNotEmpty()
     @Length(10, 15, {
         message: "El celular debe estar entre 10 a 15 números"
     })
     readonly telephone: string;
-
-    @ApiModelProperty({
+/*
+  @ApiModelProperty({
         required: true,
         type: String,
         minLength: 4,
@@ -104,5 +102,6 @@ export class SignUpDto {
     @IsEnum(UserRole)
     @Length(4, 5)
     public readonly role: string;
+*/
 }
 

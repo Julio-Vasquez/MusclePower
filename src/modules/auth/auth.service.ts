@@ -49,13 +49,31 @@ export class AuthService {
         return accessToken;
     }
 
-    public async signUp(signUp: SignUpDto) {
-        return;
+    public async signUp(signUp: SignUpDto) : Promise<boolean>{
+        const exist: User = await this.repository.findOne({ email: signUp.email, state: 'Activo'});
+        console.log(!exist)
+        if(!exist){
+            await this.repository.createQueryBuilder()
+            .insert()
+            .into(User)
+            .values({
+                names: signUp.names,
+                lastnames: signUp.lastnames,
+                email: signUp.email,
+                password: () => `PASSWORD('${signUp.password}')`,
+                telephone: signUp.telephone,
+                role: 'User',
+                state: 'Activo'
+            })
+            .execute();
+            return true;
+        }
+        return false;
     }
 
     public async validateUser(token): Promise<any>{
         const payload:any = this.jwtService.decode(token);
-        if(payload )
+        if( payload )
             return await this.userService.validUser(payload);
         return false;
     }

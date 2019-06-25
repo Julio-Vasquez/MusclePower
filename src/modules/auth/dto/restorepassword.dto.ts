@@ -1,1 +1,3 @@
-export class RestorePasswordDto{}
+export class RestorePasswordDto{
+  
+}
