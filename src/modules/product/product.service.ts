@@ -1,7 +1,9 @@
 import { Injectable } from '@nestjs/common';
-import { Connection, Repository } from 'typeorm';
+import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Product } from './../../entities/product.entity';
+import { Files } from './../common/files/files';
+import { ProductDto } from './dto/product.dto';
 
 
 @Injectable()
@@ -65,12 +67,34 @@ export class ProductService {
         return;
     }
 
-    public async updateProduct() {
-        return;
+    public async updateProduct(name:string, product:ProductDto) {
+        const path = await this.repository.createQueryBuilder("product")
+        .select("product.imgProduct","imgP")
+        .addSelect("product.imgNutritionalTable","imgNT")
+        .where("product.name = :name",{ name: name})
+        .execute();
+        const file = new Files();
+        const array = file.prepareFile([path[0].imgP, path[0].imgNT]);
+        if(file.deleteFile(array[0]) && file.deleteFile(array[1])){
+            //logi update
+            return ;
+        }
+        return false;
     }
 
-    public async deleteProduct() {
-        return;
+    public async deleteProduct(id:number) {
+        const path = await this.repository.createQueryBuilder("product")
+        .select("product.imgProduct","imgP")
+        .addSelect("product.imgNutritionalTable","imgNT")
+        .where("product.id = :id",{ id: id})
+        .execute();
+        const file = new Files();
+        const array = file.prepareFile([path[0].imgP, path[0].imgNT]);
+        if(file.deleteFile(array[0]) && file.deleteFile(array[1])){
+            const res = await this.repository.delete(id);
+            return (res.affected>0);
+        }
+        return false;
     }
 
     public async buyProduct(id: number) {

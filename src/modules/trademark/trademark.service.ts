@@ -1,7 +1,8 @@
 import { Injectable } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
-import { Trademark } from "./../../entities/trademark.entity";
 import { Repository, UpdateResult, DeleteResult } from "typeorm";
+
+import { Trademark } from "./../../entities/trademark.entity";
 import { TrademarkDto } from "./dto/trademark.dto";
 
 @Injectable()
@@ -12,9 +13,9 @@ export class TrademarkService {
     ) { }
 
     public async createTrademark(trademark: TrademarkDto, fileurl: string): Promise<boolean> {
-        const res: Trademark[] = await this.repository.find({name : trademark.name});
-        //res solo me dice si es diferente de undefine entonces !res me dice undefined
-        if( !res ){
+        const res: Trademark = await this.repository.findOne({name : trademark.name});
+        console.log(res)
+        if( !res){
             await  this.repository.insert({ name : trademark.name, img: fileurl, state: 'Activo' });
             return true;
         }

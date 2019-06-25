@@ -55,7 +55,7 @@ export class AuthService {
 
     public async validateUser(token): Promise<any>{
         const payload:any = this.jwtService.decode(token);
-        if(payload && payload.end <= parseInt(moment().format('YYYYMMDDhmm')))
+        if(payload )
             return await this.userService.validUser(payload);
         return false;
     }

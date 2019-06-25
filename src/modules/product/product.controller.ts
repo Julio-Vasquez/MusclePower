@@ -1,4 +1,16 @@
-import { Controller, Get, Post, Put, Delete, Body, Param, HttpStatus, UseGuards, FileFieldsInterceptor, UseInterceptors } from '@nestjs/common';
+import { 
+    Controller, 
+    Get, 
+    Post, 
+    Put, 
+    Delete, 
+    Body, 
+    Param, 
+    HttpStatus, 
+    UseGuards, 
+    FileFieldsInterceptor, 
+    UseInterceptors 
+} from '@nestjs/common';
 import { ApiUseTags, ApiOperation, ApiResponse } from '@nestjs/swagger';
 
 import Response from './../common/response/response';
@@ -100,10 +112,12 @@ export class ProductController {
 
     }
 
-    @Delete('deleteproduct/')
+    @Delete('deleteproduct/:id')
     @UseGuards(AuthGuard())
     public async deleteProduct(@Param('id') ref : number){
-
+        const res= await this.service.deleteProduct(ref)
+        console.log(res)
+        return "";
     }
 
     @Post('buyproduct/')

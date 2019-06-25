@@ -16,7 +16,6 @@ import { ApiOperation, ApiResponse, ApiUseTags} from '@nestjs/swagger';
 import{ AuthGuard } from '@nestjs/passport';
 
 import Response from './../common/response/response';
-
 import { TrademarkService } from './trademark.service';
 import { Trademark } from './../../entities/trademark.entity';
 import { TrademarkDto } from './dto/trademark.dto';
@@ -49,12 +48,13 @@ export class TrademarkController
     })
     @Post('createtrademark')
     @UseGuards(AuthGuard())
-    @UseInterceptors(FileInterceptor('img'))
+    @UseInterceptors(FileInterceptor('trademarkImg'))
     public async createTrademark(@Body() trademark: TrademarkDto, @UploadedFile() file): Promise<any>{
         if(trademark !== undefined && file){
             let url:string = appHost +'/'+ file.path;
 
             const res:boolean = await this.trademarkService.createTrademark(trademark, url);
+            console.log(res);
             if(res){
                 return Response
                 .status({ statusCode: HttpStatus.OK, state: 'OK'})
@@ -208,5 +208,6 @@ export class TrademarkController
             .json()
         ;
     }
+
 
 }
