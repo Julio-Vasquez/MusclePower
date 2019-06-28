@@ -40,7 +40,7 @@ export class AuthController {
     public async login(@Body() login: LoginDto): Promise<any> {
         //600, son 6 dias dado el formato de moment (YYYYMMDDHmm)
         if (login !== undefined) {
-            let res = await this.authService.login(login, 600);
+            let res = await this.authService.login(login, 6);
             if (res) {
                 return Response
                     .status({ statusCode: HttpStatus.OK, state: 'OK' })

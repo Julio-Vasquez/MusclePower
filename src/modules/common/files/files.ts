@@ -3,14 +3,15 @@ import { existsSync, unlink } from 'fs';
 export class Files {
 
   public deleteFile(path) {
-    if (existsSync(path)) {
-      unlink(path, err => {
-        console.log(err);
-        return false;
-      });
-      return true;
+    for (let item in path) {
+      if (existsSync(path[item])) {
+          unlink(path[item], err => {
+          console.log(err+'-->');
+          return false;
+        });
+      }
     }
-    return false;
+    return true;
   }
 
   public prepareFile(array) {
@@ -22,11 +23,11 @@ export class Files {
     return result;
   }
 
-  private renameFile(path) {
+  private renameFile(array) {
     return;
   }
 
-  private moveFile() {
+  private moveFile(array) {
     return;
   }
 }

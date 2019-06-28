@@ -2,7 +2,6 @@ import { Injectable } from '@nestjs/common';
 import { Repository } from 'typeorm';
 import { JwtService } from '@nestjs/jwt';
 import { InjectRepository } from '@nestjs/typeorm';
-import * as moment from 'moment';
 
 import { User } from './../../entities/user.entity';
 import { LoginDto } from './dto/login.dto';
@@ -33,8 +32,7 @@ export class AuthService {
             .andWhere("user.state ='Activo'")
             .execute()
         ;
-        const ini = parseInt(moment().format('YYYYMMDDhmm'));
-        const accessToken = {
+        return {
             id: res[0].idUser,
             names: res[0].namesUser,
             lastnames: res[0].lastnamesUser,
@@ -42,16 +40,13 @@ export class AuthService {
             tel: res[0].telUser,
             role: res[0].rolUser,
             state: 'valid',
-            start: ini,
-            end: ini+expiration
-        }
-        console.log(accessToken)
-        return accessToken;
+            start: (new Date().getTime() /1000),
+            end:  Math.round(new Date().getTime() /1000) + 21600 //6 horas
+        };
     }
 
     public async signUp(signUp: SignUpDto) : Promise<boolean>{
         const exist: User = await this.repository.findOne({ email: signUp.email, state: 'Activo'});
-        console.log(!exist)
         if(!exist){
             await this.repository.createQueryBuilder()
             .insert()

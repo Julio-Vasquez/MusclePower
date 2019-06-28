@@ -20,13 +20,14 @@ import { TrademarkService } from './trademark.service';
 import { Trademark } from './../../entities/trademark.entity';
 import { TrademarkDto } from './dto/trademark.dto';
 import { appHost } from './../common/environment/environment';
+import { Files } from '../common/files/files';
 
 @ApiUseTags('Marcas')
 @Controller('trademark')
 export class TrademarkController
 {
     constructor(
-        private readonly trademarkService: TrademarkService
+        private readonly trademarkService: TrademarkService,
     )
     {}
 
@@ -51,9 +52,7 @@ export class TrademarkController
     @UseInterceptors(FileInterceptor('trademarkImg'))
     public async createTrademark(@Body() trademark: TrademarkDto, @UploadedFile() file): Promise<any>{
         if(trademark !== undefined && file){
-            let url:string = appHost +'/'+ file.path;
-
-            const res:boolean = await this.trademarkService.createTrademark(trademark, url);
+            const res:boolean = await this.trademarkService.createTrademark(trademark, (appHost +'/'+ file.path) );
             console.log(res);
             if(res){
                 return Response
@@ -67,6 +66,8 @@ export class TrademarkController
                 .json()
             ;
         } 
+        const fl = new Files();
+        fl.deleteFile([file.path]);
         return Response
             .status({ statusCode: HttpStatus.BAD_REQUEST, state: 'ERROR BAD_REQUEST' })
             .message('No ha llegado ningun dato al servidor')
@@ -185,11 +186,11 @@ export class TrademarkController
     })
     @ApiResponse({
         status: 200,
-        description: 'Marca modificada o actualizada correctamente'
+        description: 'Marca modificada o eliminado correctamente'
     })
     @ApiResponse({
         status: 304,
-        description: 'No se pudo modificar la Marca'
+        description: 'No se pudo eliminar la Marca'
     })
     @Delete('deletetrademark/:id')
     @UseGuards(AuthGuard())

@@ -4,6 +4,7 @@ import { Repository, UpdateResult, DeleteResult } from "typeorm";
 
 import { Trademark } from "./../../entities/trademark.entity";
 import { TrademarkDto } from "./dto/trademark.dto";
+import { Files } from "../common/files/files";
 
 @Injectable()
 export class TrademarkService {
@@ -43,6 +44,11 @@ export class TrademarkService {
 
     public async deleteTrademark(id: number): Promise<boolean> {
         const res: DeleteResult = await this.repository.delete(id);
-        return (res.affected > 0) ? true : false;
+        if(res.affected > 0){
+            const path = await this.repository.findOne(id);
+            const file = new Files();
+            return file.deleteFile(file.prepareFile([path.img]));
+        }
+        return false;
     }
 }

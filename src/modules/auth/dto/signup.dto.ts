@@ -89,19 +89,5 @@ export class SignUpDto {
         message: "El celular debe estar entre 10 a 15 números"
     })
     readonly telephone: string;
-/*
-  @ApiModelProperty({
-        required: true,
-        type: String,
-        minLength: 4,
-        maxLength: 5,
-        enum: ['admin', 'user']
-    })
-    @IsString()
-    @IsNotEmpty()
-    @IsEnum(UserRole)
-    @Length(4, 5)
-    public readonly role: string;
-*/
 }
 

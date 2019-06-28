@@ -80,10 +80,16 @@ export class Product
 
     @ManyToOne(type => Category, category => category.products, { nullable: false,onDelete: 'CASCADE',onUpdate: 'CASCADE'})
     @JoinColumn({ name: 'category'})
+    @Column({
+        type: Number
+    })
     category: Category;
     
     @ManyToOne(type => Trademark, trademark => trademark.products, { nullable: false,onDelete: 'CASCADE',onUpdate: 'CASCADE'})
     @JoinColumn({ name: 'trademark'})
+    @Column({
+        type:Number
+    })
     trademark: Trademark;
 
    
